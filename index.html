@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <form id="form">
+            <fieldset id="field">
+                <label for="fname"> first name </label>
+                <input type="text" id="fname" name="fname">
+                <br>
+                <label for="email"> email </label>
+                <input type="text" id="email" name="email">
+                <br>
+                <label for="comment"> comment </label>
+                <textarea id="comment" name="comment" rows="10" cols="30"
+                    maxlength="140"></textarea>
+                <p id="counter"> 0/140 </p>
+                <button type="button" onclick="formSubmit()">send</button>
+            </fieldset>
+        </form>
+        <p> comments </p>
+        <ul id="comments" style="list-style-type: none">
+
+        </ul>
+    </body>
+    <script>
+        const form = document.getElementById("form");
+        const button = document.getElementById("button");
+        const comment = document.getElementById('comment');
+        const counter = document.getElementById('counter');
+        const author = document.getElementById("fname");
+        var name = "";
+
+        author.addEventListener('input', (event) => name = event.target.value)
+        comment.addEventListener('input', function (event) {
+            const target = event.target;
+            const maxLength = target.getAttribute('maxlength');
+            const currentLength = target.value.length;
+
+            counter.innerHTML = `${currentLength}/${maxLength}`;
+            currentLength == maxLength ? document.getElementById("field").setAttribute("style", "border-color: red") : document.getElementById("field").setAttribute("style", "")
+        });
+
+        function formSubmit() {
+            var commentSection = document.getElementById("comments");
+            var item = document.createElement("li");
+            var recipient = document.createElement("p");
+            item.innerHTML = comment.value;
+            recipient.innerHTML = "sent from " + name.toUpperCase();
+            recipient.style = "opacity: 70%; padding-left: 2rem;"
+            item.appendChild(recipient);
+            commentSection.appendChild(item);
+            commentSection.appendChild(document.createElement("hr"))
+        };
+    </script>
+</html>
