@@ -22,7 +22,7 @@
         <br>
         <label for="comment"> Comment </label>
         <br>
-        <textarea id="comment" name="comment" rows="10" cols="30" maxlength="140" placeholder="Type here..."></textarea>
+        <textarea id="comment" name="comment" rows="10" cols="30" placeholder="Type here..."></textarea>
         <p id="counter"> 0/140 </p>
         <button type="button" onclick="formSubmit()">send</button>
     </form>
@@ -42,11 +42,27 @@
     author.addEventListener('input', (event) => name = event.target.value)
     comment.addEventListener('input', function (event) {
         const target = event.target;
-        const maxLength = target.getAttribute('maxlength');
+        const maxLength = 140;
         const currentLength = target.value.length;
         counter.innerHTML = `${currentLength}/${maxLength}`;
-        currentLength == maxLength ? document.getElementById("form").setAttribute("style", "border-color: red") : document.getElementById("form").setAttribute("style", "border-color: white")
+        currentLength > maxLength ? exceeded() : valid();
+        
     });
+
+    function exceeded() {
+        document.getElementById("form").setAttribute("style", "border-color: red");
+        document.getElementsByTagName("button")[0].setAttribute("onclick", "error()");
+    }
+
+    function valid() {
+        document.getElementById("form").setAttribute("style", "border-color: white");
+        document.getElementsByTagName("button")[0].setAttribute("onclick", "formSubmit()");
+
+    }
+
+    function error() {
+        alert("Too many characters. max 140.");
+    }
 
     function formSubmit() {
         var commentSection = document.getElementById("comments");
@@ -59,6 +75,7 @@
         item.appendChild(recipient);
         item.appendChild(message);
         commentSection.appendChild(item);
+        form.reset();
         // commentSection.appendChild(document.createElement("hr"))
     };
 </script>

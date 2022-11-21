@@ -39,6 +39,7 @@ textarea {
 
 #commentBox {
     padding-top: 1rem;
+    word-break: break-all;
     color: azure;
     height: 100vh;
     position: absolute;
